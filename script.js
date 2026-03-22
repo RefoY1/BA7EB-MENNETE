@@ -40,10 +40,10 @@ var init = function () {
     if (loaded) return;
     loaded = true;
     var mobile = window.isDevice;
-    var koef = mobile ? 0.5 : 1;
+    var koef = 1;
     var ctx = canvas.getContext('2d');
-    var width = canvas.width = koef * innerWidth;
-    var height = canvas.height = koef * innerHeight;
+    var width = canvas.width = koef * window.innerWidth;
+    var height = canvas.height = koef * window.innerHeight;
     var rand = Math.random;
     ctx.fillStyle = "rgba(0,0,0,1)";
     ctx.fillRect(0, 0, width, height);
@@ -57,19 +57,23 @@ var init = function () {
     };
 
     window.addEventListener('resize', function () {
-        width = canvas.width = koef * innerWidth;
-        height = canvas.height = koef * innerHeight;
+        width = canvas.width = koef * window.innerWidth;
+        height = canvas.height = koef * window.innerHeight;
         ctx.fillStyle = "rgba(0,0,0,1)";
         ctx.fillRect(0, 0, width, height);
     });
 
-    var traceCount = mobile ? 20 : 50;
+    // تعديل حجم القلب حسب حجم الشاشة
+    var screenSize = Math.min(width, height);
+    var heartScale = screenSize / 800; // نسبة الحجم حسب الشاشة
+    
+    var traceCount = mobile ? 15 : 50;
     var pointsOrigin = [];
     var i;
     var dr = mobile ? 0.3 : 0.1;
-    for (i = 0; i < Math.PI * 2; i += dr) pointsOrigin.push(scaleAndTranslate(heartPosition(i), 210, 13, 0, 0));
-    for (i = 0; i < Math.PI * 2; i += dr) pointsOrigin.push(scaleAndTranslate(heartPosition(i), 150, 9, 0, 0));
-    for (i = 0; i < Math.PI * 2; i += dr) pointsOrigin.push(scaleAndTranslate(heartPosition(i), 90, 5, 0, 0));
+    for (i = 0; i < Math.PI * 2; i += dr) pointsOrigin.push(scaleAndTranslate(heartPosition(i), 210 * heartScale, 13 * heartScale, 0, 0));
+    for (i = 0; i < Math.PI * 2; i += dr) pointsOrigin.push(scaleAndTranslate(heartPosition(i), 150 * heartScale, 9 * heartScale, 0, 0));
+    for (i = 0; i < Math.PI * 2; i += dr) pointsOrigin.push(scaleAndTranslate(heartPosition(i), 90 * heartScale, 5 * heartScale, 0, 0));
     var heartPointsCount = pointsOrigin.length;
 
     var targetPoints = [];
