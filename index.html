@@ -6,6 +6,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <title>Heart Animation</title>
         <link rel="stylesheet" href="style.css">
+        <style>
+                /* تأكد إن start screen يملا الشاشة كلها وفي النص */
+                #startScreen {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        z-index: 999;
+                }
+
+                #startScreen h1 {
+                        text-align: center;
+                        pointer-events: none; /* الكليك يشتغل على الـ div مش الكلمة */
+                }
+        </style>
 </head>
 
 <body>
